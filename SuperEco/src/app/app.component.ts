@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, ModalController  } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -7,7 +7,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AppState } from '../app/app.global';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { LoginPage } from '../pages/login/login';
+import { RegisterPage } from '../pages/register/register';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -17,13 +19,14 @@ export class MyApp {
 
   rootPage: any = HomePage;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, component: any, icon:string }>;
   themes: Array<{title: string, theme: string, color:string}>;
 
   constructor(public platform: Platform
             , public statusBar: StatusBar
             , public splashScreen: SplashScreen
             , public global:AppState
+            , public modalCtrl: ModalController
           ) {
     this.initializeApp();
 
@@ -37,8 +40,8 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage }
+      { title: 'Login', component: LoginPage, icon:"person" },
+      { title: 'Registrar', component: RegisterPage, icon:"logo-buffer" }
     ];
   }
 
@@ -61,5 +64,17 @@ export class MyApp {
   changeTheme(theme:any){
     this.global.set('theme', theme);
     //console.log("theme " + theme.title + ", " + this.global.get('theme'));
+  }
+
+  showRegistartPunto(page) {
+    let lpage:any;
+
+    switch(page){
+      case 'Login': lpage = LoginPage; break;
+      case 'Registrar': lpage = RegisterPage; break;
+    }
+    
+    let profileModal = this.modalCtrl.create(lpage, { userId: 8675309 });
+    profileModal.present();
   }
 }

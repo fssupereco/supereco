@@ -3,16 +3,123 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title>Super Eco</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+<ion-content>
+  <!-- Colors -->
+  <ion-fab right (click)="showRegistartPunto()">
+    <button ion-fab >
+      <ion-icon name="camera"></ion-icon>
+    </button>
+  </ion-fab>
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+  <ion-fab right bottom color="#018bc9" (click)="showEstadisticas()">
+    <button ion-fab>
+      <ion-icon name="stats"></ion-icon>
+    </button>
+  </ion-fab>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+  <ion-grid>
+    <ion-row class="card">
+      <ion-col>
+        <div>
+          <ion-item>
+            <ion-avatar item-start>
+              <img src="../../assets/imgs/{{ login.user }}.jpg">
+            </ion-avatar>
+            <h2>{{ login.nombres }} {{ login.apellidos }}</h2>
+            <p>{{ login.ultIngreso }}</p>
+          </ion-item>
+        
+          <!--ion-card-content>
+            <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... </p>
+          </ion-card-content-->
+        
+          <ion-row>
+            <ion-col>
+              <button ion-button icon-start clear small>
+                <ion-icon name="locate"></ion-icon>
+                <div>{{ login.Registrados }} Registrados</div>
+              </button>
+            </ion-col>
+            <ion-col>
+              <button ion-button icon-start clear small>
+                <ion-icon name="qr-scanner"></ion-icon>
+                <div>{{ login.Limpios }} Limpios</div>
+              </button>
+            </ion-col>
+            <ion-col center text-center>
+              <ion-note>
+                11h ago
+              </ion-note>
+            </ion-col>
+          </ion-row>
+        
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="options">
+    <ion-col>
+        <ion-segment [(ngModel)]="info">
+            <ion-segment-button value="top">
+              Top
+            </ion-segment-button>
+            <ion-segment-button value="informacion">
+              Información
+            </ion-segment-button>
+            <ion-segment-button value="premios">
+              Premios
+            </ion-segment-button>
+        </ion-segment>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="options-detail">
+      <ion-col>
+        <div [ngSwitch]="info">
+            <ion-list *ngSwitchCase="'top'">
+              <ion-item>
+                <ion-list>
+                  <ion-item *ngFor="let item of top">
+                    <ion-avatar item-start>
+                      <img src="../../assets/imgs/{{ item.user }}.jpg">
+                    </ion-avatar>
+                    <h2>{{ item.nombres }} {{ item.apellidos }}</h2>
+                    <p>{{ item.grupo }}</p>
+                  </ion-item>
+                </ion-list>
+              </ion-item>
+            </ion-list>
+          
+            <ion-list *ngSwitchCase="'informacion'">
+              <ion-item>
+                <ion-grid>
+                  <ion-row *ngFor="let row of informacion"
+                           [ngClass]="row.tipo === 'Historico' ? 'info-historica' : 'info-actual'">
+                    <ion-col col-8> {{ row.dato }} </ion-col>
+                    <ion-col col-4> {{ row.valor }} </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-item>
+            </ion-list>
+            <ion-list *ngSwitchCase="'premios'">
+              <ion-item>
+                <ion-list>
+                  <ion-item *ngFor="let premio of premios">
+                      <ion-avatar item-start>
+                          <img src="../../assets/imgs/{{ premio.usuario }}.jpg">
+                      </ion-avatar>
+                      {{ premio.premio }} ({{ premio.valor }})
+                      <ion-icon name="{{ getIcon('premio', premio.tipo) }}" item-end></ion-icon>
+                  </ion-item>
+                </ion-list>
+              </ion-item>
+            </ion-list>
+          </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>   
 </ion-content>

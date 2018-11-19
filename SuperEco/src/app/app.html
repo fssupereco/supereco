@@ -5,32 +5,20 @@
         <ion-title>Menu</ion-title>
       </ion-toolbar>
     </ion-header>
-  
-    <ion-card>
-        <!--img src="../assets/imgs/usuario.png"/-->
-        <ion-card-content>
-          <ion-card-title>
-            Nine Inch Nails Live
-            </ion-card-title>
-          <p>
-            The most popular industrial group ever, and largely
-            responsible for bringing the music to a mass audience.
-          </p>
-        </ion-card-content>
-      </ion-card>
-      
+
     <ion-content>      
       <ion-list>
-        <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-          {{p.title}}
+        <button menuClose ion-item *ngFor="let p of pages" (click)="showRegistartPunto(p.title)">
+          <ion-icon name="{{ p.icon }}" item-start> </ion-icon> {{p.title}}
         </button>
+        <hr>
+        Cambia de tema
         <hr>
         <button menuClose ion-item *ngFor="let t of themes" (click)="changeTheme(t)">
           {{t.title}}
         </button>
       </ion-list>
-    </ion-content>
-  
+    </ion-content>  
   </ion-menu>
   
   <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
